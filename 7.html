@@ -1,0 +1,1120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WithCompany — Investor Deck</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #0a0a0a;
+  --ink2: #2e2e2e;
+  --ink3: #666;
+  --ink4: #aaa;
+  --paper: #faf7f2;
+  --white: #ffffff;
+  --bdr: #ddd8cf;
+  --bdr2: #eae5de;
+  --accent: #e03d18;
+  --accent-light: #fff2ef;
+  --accent-mid: #f0a090;
+  --blue: #1055bb;
+  --blue-light: #e8f0fd;
+  --green: #0f8040;
+  --green-light: #e3f7eb;
+  --gold: #c07800;
+  --gold-light: #fff8e0;
+  --cover: #0a0908;
+  --shadow: 0 2px 12px rgba(15,15,15,.10), 0 1px 3px rgba(15,15,15,.07);
+  --shadow-lg: 0 8px 40px rgba(15,15,15,.15), 0 2px 8px rgba(15,15,15,.10);
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);-webkit-font-smoothing:antialiased;}
+
+/* ── CHROME ── */
+.progress{position:fixed;top:0;left:0;right:0;height:2px;z-index:300;background:rgba(0,0,0,.08);}
+.pfill{height:100%;width:0%;background:var(--accent);transition:width .4s ease;}
+#ctr{position:fixed;bottom:22px;right:26px;font-family:'DM Mono',monospace;font-size:10px;color:var(--ink4);z-index:300;letter-spacing:.06em;}
+.nav-dots{position:fixed;right:20px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:8px;z-index:300;}
+.nd{width:5px;height:5px;border-radius:50%;background:var(--bdr);cursor:pointer;transition:all .25s;}
+.nd.a{background:var(--accent);transform:scale(1.5);}
+
+/* ── SLIDE BASE ── */
+.slide{min-height:100vh;padding:72px 88px;display:flex;flex-direction:column;justify-content:center;position:relative;border-bottom:1px solid var(--bdr);background:var(--white);opacity:0;transform:translateY(16px);transition:opacity .65s ease,transform .65s ease;}
+.slide.v{opacity:1;transform:translateY(0);}
+.slide.paper{background:var(--paper);}
+.sn{position:absolute;top:28px;right:88px;font-family:'DM Mono',monospace;font-size:10px;color:var(--ink4);letter-spacing:.08em;}
+.eyebrow{font-family:'DM Mono',monospace;font-size:10px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;margin-bottom:16px;}
+.eyebrow.accent{color:var(--accent);}
+.eyebrow.blue{color:var(--blue);}
+.eyebrow.green{color:var(--green);}
+.eyebrow.gold{color:var(--gold);}
+
+/* ── TYPOGRAPHY ── */
+.display{font-family:'Instrument Serif',serif;font-size:clamp(36px,5.5vw,68px);line-height:1.05;letter-spacing:-.01em;color:var(--ink);margin-bottom:28px;}
+.display .accent{color:var(--accent);}
+.display .muted{color:var(--ink4);font-style:italic;}
+.display .blue{color:var(--blue);}
+.display .green{color:var(--green);}
+.body-lead{font-size:16px;color:var(--ink2);line-height:1.75;max-width:580px;margin-bottom:32px;font-weight:300;}
+.label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);}
+.mono{font-family:'DM Mono',monospace;}
+
+/* ── CARDS ── */
+.card{background:var(--white);border:1px solid var(--bdr);border-radius:14px;padding:24px 26px;transition:box-shadow .2s;}
+.card:hover{box-shadow:var(--shadow);}
+.card-title{font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;margin-bottom:6px;color:var(--ink);}
+.card-body{font-size:13px;color:var(--ink2);line-height:1.65;}
+
+/* chips */
+.chip{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:500;padding:3px 9px;border-radius:100px;font-family:'DM Mono',monospace;letter-spacing:.03em;}
+.chip.accent{background:var(--accent-light);color:var(--accent);}
+.chip.blue{background:var(--blue-light);color:var(--blue);}
+.chip.green{background:var(--green-light);color:var(--green);}
+.chip.gold{background:var(--gold-light);color:var(--gold);}
+
+/* callout box */
+.callout{padding:18px 22px;border-radius:12px;font-size:13.5px;line-height:1.75;color:var(--ink);}
+.callout.blue{background:var(--blue-light);border:1px solid rgba(26,95,168,.2);}
+.callout.accent{background:var(--accent-light);border:1px solid rgba(200,64,30,.2);}
+.callout.green{background:var(--green-light);border:1px solid rgba(26,122,74,.2);}
+.callout.gold{background:var(--gold-light);border:1px solid rgba(184,134,11,.2);}
+.callout strong{font-weight:600;}
+
+/* ── S1: COVER ── */
+.cover{background:var(--cover);justify-content:space-between;}
+.cover-bar{display:flex;align-items:center;justify-content:space-between;}
+.cover-logo{font-family:'Instrument Serif',serif;font-size:18px;color:rgba(255,255,255,.85);letter-spacing:-.01em;}
+.cover-conf{font-family:'DM Mono',monospace;font-size:10px;color:rgba(255,255,255,.2);letter-spacing:.1em;text-transform:uppercase;}
+.cover-body{flex:1;display:flex;flex-direction:column;justify-content:center;padding:56px 0 32px;}
+.cover-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(200,64,30,.15);border:1px solid rgba(200,64,30,.3);border-radius:100px;padding:5px 16px;margin-bottom:28px;width:fit-content;}
+.cover-tag-dot{width:5px;height:5px;border-radius:50%;background:var(--accent);}
+.cover-tag-txt{font-family:'DM Mono',monospace;font-size:10px;font-weight:500;color:var(--accent);letter-spacing:.08em;text-transform:uppercase;}
+.cover-h{font-family:'Instrument Serif',serif;font-size:clamp(52px,8vw,96px);font-weight:400;line-height:.97;letter-spacing:-.02em;color:#fff;max-width:820px;margin-bottom:28px;}
+.cover-h .ac{color:var(--accent);}
+.cover-h .soft{color:rgba(255,255,255,.3);font-style:italic;}
+.cover-tagline{font-size:16px;font-weight:300;color:rgba(255,255,255,.4);max-width:520px;line-height:1.75;font-style:italic;border-left:2px solid rgba(200,64,30,.4);padding-left:16px;}
+.cover-foot{border-top:1px solid rgba(255,255,255,.07);padding-top:24px;display:flex;align-items:center;justify-content:space-between;}
+.cover-team{font-size:12px;color:rgba(255,255,255,.25);}
+.cover-team strong{color:rgba(255,255,255,.5);font-weight:500;}
+.cover-hint{font-size:10px;color:rgba(255,255,255,.15);font-family:'DM Mono',monospace;letter-spacing:.06em;}
+
+/* ── INSIGHT GRID ── */
+.insight-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;max-width:800px;margin-bottom:22px;}
+.insight-card{padding:22px 24px;border-radius:14px;border:1px solid var(--bdr);background:var(--white);}
+.insight-card:nth-child(1){border-left:4px solid var(--accent);}
+.insight-card:nth-child(2){border-left:4px solid var(--blue);}
+.insight-card:nth-child(3){border-left:4px solid var(--green);}
+.insight-card:nth-child(4){border-left:4px solid var(--gold);}
+.insight-ico{font-size:22px;margin-bottom:10px;}
+
+/* ── WHO WE ARE ── */
+.dna-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;max-width:900px;margin-bottom:20px;}
+.dna-item{padding:26px 22px;border-radius:14px;border:1px solid var(--bdr);background:var(--white);}
+.dna-num{font-family:'Instrument Serif',serif;font-size:48px;color:var(--bdr);line-height:1;margin-bottom:10px;}
+.dna-title{font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;margin-bottom:6px;}
+.dna-body{font-size:12.5px;color:var(--ink2);line-height:1.65;}
+
+/* ── DARK SLIDE ── */
+.dark-slide{background:var(--cover);}
+.dark-ey{font-family:'DM Mono',monospace;font-size:10px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:28px;}
+.dark-h{font-family:'Instrument Serif',serif;font-size:clamp(44px,7vw,82px);font-weight:400;line-height:1.0;letter-spacing:-.02em;color:#fff;max-width:760px;margin-bottom:32px;}
+.dark-h .ac{color:var(--accent);}
+.three-pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,.06);border-radius:16px;overflow:hidden;max-width:800px;margin-bottom:28px;}
+.pillar{padding:26px 24px;background:rgba(255,255,255,.03);}
+.pillar-num{font-family:'DM Mono',monospace;font-size:10px;color:rgba(255,255,255,.25);margin-bottom:12px;letter-spacing:.06em;}
+.pillar-title{font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;color:#fff;margin-bottom:8px;}
+.pillar-body{font-size:12px;color:rgba(255,255,255,.4);line-height:1.7;}
+.dark-close{font-size:16px;color:rgba(255,255,255,.35);line-height:1.75;max-width:600px;font-style:italic;}
+.dark-close strong{color:rgba(255,255,255,.75);font-style:normal;}
+
+/* ── PROOF ── */
+.proof-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;max-width:900px;}
+.proof-card{border-radius:14px;border:1px solid var(--bdr);background:var(--white);overflow:hidden;}
+.proof-header{padding:18px 22px;border-bottom:1px solid var(--bdr2);display:flex;align-items:center;justify-content:space-between;}
+.proof-name{font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;}
+.proof-body{padding:20px 22px;}
+.proof-problem{font-size:12px;color:var(--ink3);margin-bottom:12px;line-height:1.6;font-family:'DM Mono',monospace;letter-spacing:.02em;}
+.proof-solution{font-size:13px;color:var(--ink2);line-height:1.65;margin-bottom:14px;}
+.proof-result{padding:10px 14px;border-radius:9px;font-size:12px;line-height:1.6;}
+.proof-result.green{background:var(--green-light);color:var(--green);}
+.proof-result.blue{background:var(--blue-light);color:var(--blue);}
+.proof-result strong{font-weight:600;}
+
+/* ── PRODUCTS ── */
+.prod-hero{border-radius:16px;border:1px solid var(--bdr);background:var(--white);overflow:hidden;max-width:900px;margin-bottom:14px;}
+.prod-hero-header{padding:22px 28px;background:var(--paper);border-bottom:1px solid var(--bdr);display:flex;align-items:center;justify-content:space-between;}
+.prod-hero-title{font-family:'Instrument Serif',serif;font-size:24px;color:var(--ink);}
+.prod-hero-body{padding:24px 28px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px;}
+.prod-detail-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);margin-bottom:6px;}
+.prod-detail-val{font-size:13px;color:var(--ink2);line-height:1.6;}
+.prod-secondary{display:grid;grid-template-columns:1fr 1fr;gap:12px;max-width:900px;}
+.prod-sec-card{border-radius:14px;border:1px solid var(--bdr);background:var(--paper);padding:22px 24px;}
+.prod-sec-title{font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;margin-bottom:8px;}
+.prod-sec-body{font-size:12.5px;color:var(--ink2);line-height:1.65;margin-bottom:12px;}
+
+/* ── MARKET SIZE (TAM/SAM/SOM circles) ── */
+.mkt-wrap{display:grid;grid-template-columns:420px 1fr;gap:56px;align-items:center;max-width:960px;}
+.circles-wrap{position:relative;width:380px;height:380px;flex-shrink:0;}
+.circ{position:absolute;border-radius:50%;}
+.c-tam{width:380px;height:380px;top:0;left:0;border:2px solid rgba(26,95,168,.25);background:rgba(26,95,168,.04);}
+.c-sam{width:260px;height:260px;top:60px;left:60px;border:2px solid rgba(200,64,30,.3);background:rgba(200,64,30,.05);}
+.c-som{width:148px;height:148px;top:116px;left:116px;border:2.5px solid var(--accent);background:rgba(200,64,30,.1);}
+.cl{position:absolute;}
+.cl-tam{top:12px;left:14px;}
+.cl-sam{top:74px;left:74px;}
+.cl-som{top:132px;left:130px;text-align:center;}
+.cl-lbl{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:2px;}
+.cl-tam .cl-lbl{color:rgba(26,95,168,.6);}
+.cl-sam .cl-lbl{color:rgba(200,64,30,.6);}
+.cl-som .cl-lbl{color:var(--accent);}
+.cl-val{font-family:'Instrument Serif',serif;font-weight:400;letter-spacing:-.01em;line-height:1.05;}
+.cl-tam .cl-val{font-size:18px;color:rgba(26,95,168,.8);}
+.cl-sam .cl-val{font-size:16px;color:var(--accent);}
+.cl-som .cl-val{font-size:14px;color:var(--accent);}
+.cl-sub{font-size:10px;color:var(--ink3);margin-top:1px;}
+.mkt-stats{display:flex;flex-direction:column;gap:10px;}
+.ms{padding:16px 20px;background:var(--white);border:1px solid var(--bdr);border-left:3px solid;}
+.ms.bl{border-left-color:var(--blue);}
+.ms.ac{border-left-color:var(--accent);}
+.ms.go{border-left-color:var(--green);}
+.ms-v{font-family:'Instrument Serif',serif;font-size:26px;margin-bottom:2px;line-height:1;}
+.ms.ac .ms-v{color:var(--accent);}
+.ms.go .ms-v{color:var(--green);}
+.ms.bl .ms-v{color:var(--blue);}
+.ms-l{font-family:'DM Mono',monospace;font-size:9px;color:var(--ink3);letter-spacing:.08em;text-transform:uppercase;}
+.ms-d{font-size:11px;color:var(--ink2);margin-top:3px;line-height:1.5;}
+
+/* ── COMPETITIVE LANDSCAPE ── */
+.comp-layout{display:grid;grid-template-columns:1fr 340px;gap:44px;align-items:start;max-width:1000px;}
+.xy-wrap{position:relative;width:100%;height:420px;}
+.xy-area{position:absolute;top:32px;left:56px;right:8px;bottom:36px;border-left:1.5px solid var(--bdr);border-bottom:1.5px solid var(--bdr);}
+.xy-sweet{position:absolute;top:0;left:50%;right:0;bottom:50%;background:rgba(200,64,30,.03);border:1px dashed rgba(200,64,30,.15);border-left:none;border-bottom:none;}
+.ax-ql{position:absolute;font-family:'DM Mono',monospace;font-size:9px;color:rgba(200,64,30,.4);letter-spacing:.08em;text-transform:uppercase;}
+.ax-xl{position:absolute;bottom:-28px;left:50%;transform:translateX(-50%);font-family:'DM Mono',monospace;font-size:9px;color:var(--ink3);letter-spacing:.1em;text-transform:uppercase;}
+.ax-yl{position:absolute;top:50%;left:-72px;transform:translateY(-50%) rotate(-90deg);font-family:'DM Mono',monospace;font-size:9px;color:var(--ink3);letter-spacing:.1em;text-transform:uppercase;white-space:nowrap;}
+.ax-lo{position:absolute;font-family:'DM Mono',monospace;font-size:8px;color:var(--ink3);}
+.cp{position:absolute;transform:translate(-50%,-50%);cursor:default;}
+.cp-dot{border-radius:50%;transition:transform .2s;}
+.cp:hover .cp-dot{transform:scale(1.25);}
+.cp-label{position:absolute;white-space:nowrap;font-family:'DM Mono',monospace;font-size:9px;color:var(--ink2);}
+.cp-label.r{left:calc(100% + 7px);top:50%;transform:translateY(-50%);}
+.cp-label.l{right:calc(100% + 7px);top:50%;transform:translateY(-50%);}
+.cp-label.b{top:calc(100% + 5px);left:50%;transform:translateX(-50%);}
+.cp-label.t{bottom:calc(100% + 5px);left:50%;transform:translateX(-50%);}
+.wc-ring{position:absolute;border-radius:50%;border:2px dashed rgba(200,64,30,.5);transform:translate(-50%,-50%);animation:pr 2.8s ease-in-out infinite;}
+@keyframes pr{0%,100%{opacity:.4;transform:translate(-50%,-50%) scale(1);}50%{opacity:.7;transform:translate(-50%,-50%) scale(1.1);}}
+.comp-legend{display:flex;flex-direction:column;gap:8px;margin-top:32px;}
+.cleg{display:flex;align-items:flex-start;gap:10px;padding:12px 14px;border:1px solid var(--bdr);background:var(--white);border-radius:10px;}
+.cleg.wc{border-color:rgba(200,64,30,.3);background:var(--accent-light);}
+.cleg-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;margin-top:3px;}
+.cleg-n{font-family:'DM Sans',sans-serif;font-size:11.5px;font-weight:600;margin-bottom:1px;}
+.cleg.wc .cleg-n{color:var(--accent);}
+.cleg-d{font-size:10px;color:var(--ink3);line-height:1.45;}
+.comp-verdict{margin-top:10px;padding:12px 15px;border:1px solid rgba(200,64,30,.2);background:var(--accent-light);font-family:'DM Mono',monospace;font-size:10px;color:var(--accent);line-height:1.65;border-radius:8px;}
+
+/* ── COMPETITIVE MOAT ── */
+.moat-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;max-width:880px;}
+.moat-col-hd{font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;padding:10px 16px;border-radius:10px;margin-bottom:6px;text-align:center;}
+.moat-col-hd.wc{background:var(--ink);color:#fff;}
+.moat-col-hd.them{background:var(--paper);color:var(--ink2);border:1px solid var(--bdr);}
+.moat-card{border-radius:12px;padding:18px 20px;border:1px solid var(--bdr);background:var(--white);margin-bottom:8px;}
+.moat-card.wc{border-left:3px solid var(--accent);}
+.moat-card.them{opacity:.65;}
+.moat-card-t{font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;margin-bottom:4px;}
+.moat-card.wc .moat-card-t{color:var(--accent);}
+.moat-card-d{font-size:12px;color:var(--ink2);line-height:1.6;}
+
+/* ── TEAM ── */
+.team-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;max-width:860px;}
+.tmem{border-radius:14px;padding:28px 24px;border:1px solid var(--bdr);background:var(--white);}
+.tmem:nth-child(1){border-top:4px solid var(--accent);}
+.tmem:nth-child(2){border-top:4px solid var(--blue);}
+.tmem:nth-child(3){border-top:4px solid var(--green);}
+.tmem-role{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);margin-bottom:8px;}
+.tmem-name{font-family:'Instrument Serif',serif;font-size:28px;margin-bottom:4px;}
+.tmem-focus{font-size:12.5px;color:var(--ink3);margin-bottom:18px;}
+.tmem-pts{display:flex;flex-direction:column;gap:9px;}
+.tmem-pt{font-size:12.5px;color:var(--ink2);display:flex;gap:10px;line-height:1.55;}
+.tmem-pt::before{content:'→';color:var(--accent);font-size:11px;flex-shrink:0;margin-top:1px;}
+
+/* ── GTM ── */
+.gtm-phases{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;max-width:920px;margin-bottom:20px;}
+.gph{background:var(--white);border:1px solid var(--bdr);border-radius:14px;padding:26px 22px;position:relative;overflow:hidden;}
+.gph::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;}
+.gph:nth-child(1)::before{background:var(--accent);}
+.gph:nth-child(2)::before{background:var(--blue);}
+.gph:nth-child(3)::before{background:var(--green);}
+.gph-n{font-family:'Instrument Serif',serif;font-size:52px;color:var(--bdr);line-height:1;margin-bottom:12px;}
+.gph-period{font-family:'DM Mono',monospace;font-size:9px;color:var(--accent);letter-spacing:.1em;margin-bottom:5px;text-transform:uppercase;}
+.gph:nth-child(2) .gph-period{color:var(--blue);}
+.gph:nth-child(3) .gph-period{color:var(--green);}
+.gph-t{font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;margin-bottom:12px;}
+.gph-pts{display:flex;flex-direction:column;gap:8px;}
+.gph-pt{font-size:12px;color:var(--ink2);display:flex;gap:8px;line-height:1.5;}
+.gph-pt::before{content:'→';color:var(--ink4);flex-shrink:0;font-size:10px;margin-top:1px;}
+.gph-target{margin-top:16px;padding:9px 12px;border:1px solid var(--bdr);background:var(--paper);font-family:'DM Mono',monospace;font-size:10px;color:var(--ink2);border-radius:8px;}
+.gtm-channels{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;max-width:920px;}
+.gch{border:1px solid var(--bdr);padding:18px 16px;background:var(--paper);border-radius:12px;text-align:center;}
+.gch-ico{font-size:22px;margin-bottom:8px;}
+.gch-t{font-family:'DM Sans',sans-serif;font-size:12.5px;font-weight:600;margin-bottom:4px;}
+.gch-d{font-size:11px;color:var(--ink2);line-height:1.5;}
+
+/* ── UNIT ECONOMICS ── */
+.ue-wrap{display:grid;grid-template-columns:1fr 1fr;gap:14px;max-width:920px;}
+.uec{background:var(--white);border:1px solid var(--bdr);border-radius:14px;padding:24px;}
+.uec-lbl{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);margin-bottom:14px;}
+.uec-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--bdr2);}
+.uec-row:last-child{border-bottom:none;}
+.uec-k{font-size:12.5px;color:var(--ink2);}
+.uec-k.strong{font-weight:600;color:var(--ink);}
+.uec-v{font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;}
+.uec-v.g{color:var(--accent);}
+.uec-v.gr{color:var(--green);}
+.uec-v.rd{color:var(--accent);}
+.uec-v.big{font-family:'Instrument Serif',serif;font-size:20px;}
+.uec-highlight{margin-top:14px;padding:12px 16px;background:var(--green-light);border:1px solid rgba(26,122,74,.18);font-size:12.5px;color:var(--green);line-height:1.65;border-radius:10px;}
+.uec-highlight strong{font-weight:600;}
+.opex-chart{display:flex;flex-direction:column;gap:8px;}
+.opex-row{display:flex;align-items:center;gap:10px;}
+.opex-lbl{font-size:11px;color:var(--ink2);width:210px;flex-shrink:0;}
+.opex-bar-wrap{flex:1;height:5px;background:var(--bdr2);border-radius:3px;overflow:hidden;}
+.opex-bar{height:100%;border-radius:3px;background:var(--accent);}
+.opex-val{font-family:'DM Mono',monospace;font-size:10px;color:var(--ink3);width:90px;text-align:right;flex-shrink:0;}
+.opex-total{margin-top:14px;display:flex;justify-content:space-between;padding:12px 0;border-top:1px solid var(--bdr);}
+.opex-total-l{font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;}
+.opex-total-v{font-family:'Instrument Serif',serif;font-size:18px;color:var(--accent);}
+
+/* ── FINANCIALS ── */
+.fin-tabs{display:flex;gap:0;border-bottom:1px solid var(--bdr);margin-bottom:24px;max-width:920px;}
+.fin-tab{padding:10px 20px;font-size:13px;color:var(--ink3);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .2s;font-family:'DM Sans',sans-serif;font-weight:400;}
+.fin-tab:hover{color:var(--ink);}
+.fin-tab.active{color:var(--accent);border-bottom-color:var(--accent);font-weight:500;}
+.fin-panel{display:none;max-width:920px;}
+.fin-panel.active{display:block;}
+.rtable{width:100%;border-collapse:collapse;font-size:13px;}
+.rtable th{text-align:left;padding:10px 16px;background:var(--paper);border-bottom:1px solid var(--bdr);font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);font-weight:500;font-family:'DM Mono',monospace;}
+.rtable td{padding:13px 16px;border-bottom:1px solid var(--bdr2);vertical-align:top;}
+.rtable tr:hover td{background:var(--paper);}
+.rs{font-family:'DM Sans',sans-serif;font-weight:600;font-size:13.5px;}
+.rsub{font-size:11px;color:var(--ink3);margin-top:2px;font-family:'DM Mono',monospace;}
+.ram{font-family:'Instrument Serif',serif;font-size:17px;}
+.rsr td{background:var(--paper);}
+.rsr .ram{color:var(--accent);font-size:20px;}
+.rsec td{background:var(--paper);font-size:9px;font-weight:500;letter-spacing:.07em;text-transform:uppercase;color:var(--ink3);padding:7px 16px;font-family:'DM Mono',monospace;}
+/* 5yr bar chart */
+.bars5{display:flex;align-items:flex-end;gap:16px;height:200px;margin-bottom:20px;max-width:760px;}
+.bc5{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;height:100%;justify-content:flex-end;}
+.bc5-top{font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;color:var(--ink);}
+.bc5-stack{width:100%;display:flex;flex-direction:column;gap:1px;}
+.bsaas5{border-radius:3px 3px 0 0;min-height:4px;background:var(--green);}
+.berp5{min-height:4px;background:var(--blue);opacity:.7;}
+.bret5{min-height:4px;background:var(--accent);opacity:.65;}
+.bc5-lbl{font-family:'DM Mono',monospace;font-size:9px;color:var(--ink3);}
+.bc5-gr{font-family:'DM Mono',monospace;font-size:9px;color:var(--green);}
+.fleg5{display:flex;gap:18px;margin-bottom:16px;}
+.fleg5-item{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--ink2);}
+.fleg5-dot{width:9px;height:9px;border-radius:2px;}
+/* 3yr bar chart */
+.pbars{display:flex;align-items:flex-end;gap:14px;max-width:760px;height:190px;margin-bottom:20px;}
+.pbar-w{flex:1;display:flex;flex-direction:column;align-items:center;gap:8px;height:100%;justify-content:flex-end;}
+.pbar-val{font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;color:var(--ink);}
+.pbar-stk{width:100%;display:flex;flex-direction:column;gap:1px;}
+.pbar-seg{min-height:4px;}
+.pbar-seg.tech{background:var(--green);border-radius:3px 3px 0 0;}
+.pbar-seg.agency{background:var(--accent);}
+.pbar-lbl{font-family:'DM Mono',monospace;font-size:10px;color:var(--ink3);letter-spacing:.04em;}
+.pleg{display:flex;gap:18px;margin-bottom:16px;}
+.pleg-item{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--ink2);}
+.pleg-dot{width:10px;height:10px;border-radius:3px;}
+
+/* ── THE ASK ── */
+.ask-wrap{display:grid;grid-template-columns:1fr 1fr;gap:44px;max-width:1000px;}
+.val-box{padding:28px;background:var(--paper);border:1px solid var(--bdr);border-radius:14px;margin-bottom:12px;}
+.val-lbl{font-family:'DM Mono',monospace;font-size:9px;color:var(--ink3);letter-spacing:.12em;text-transform:uppercase;margin-bottom:6px;}
+.val-num{font-family:'Instrument Serif',serif;font-size:48px;color:var(--accent);line-height:1;margin-bottom:8px;}
+.val-sub{font-size:12.5px;color:var(--ink2);line-height:1.7;}
+.uof{background:var(--white);border:1px solid var(--bdr);border-radius:14px;padding:22px;}
+.uof-t{font-family:'DM Mono',monospace;font-size:9px;color:var(--ink3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:14px;}
+.uof-row{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--bdr2);}
+.uof-row:last-child{border-bottom:none;}
+.uof-lbl{font-size:11.5px;color:var(--ink2);width:180px;flex-shrink:0;}
+.uof-bar-w{flex:1;height:4px;background:var(--bdr2);border-radius:2px;overflow:hidden;}
+.uof-bar{height:100%;background:var(--accent);border-radius:2px;}
+.uof-pct{font-family:'DM Mono',monospace;font-size:10px;color:var(--accent);width:32px;text-align:right;flex-shrink:0;}
+.uof-rm{font-family:'DM Mono',monospace;font-size:10px;color:var(--ink3);width:80px;text-align:right;flex-shrink:0;}
+.runway-box{margin-top:12px;padding:16px 18px;background:var(--green-light);border:1px solid rgba(26,122,74,.2);border-radius:12px;}
+.runway-lbl{font-family:'DM Mono',monospace;font-size:9px;color:var(--green);letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px;}
+.runway-val{font-family:'Instrument Serif',serif;font-size:26px;color:var(--green);}
+.runway-d{font-size:11px;color:var(--ink2);margin-top:4px;line-height:1.6;}
+/* tiers */
+.tiers{display:flex;flex-direction:column;gap:3px;margin-bottom:14px;}
+.tier-hd{display:grid;grid-template-columns:52px 1fr 1fr 1fr 1fr;max-width:860px;padding:0 0 8px;}
+.tier-th{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);padding:0 14px;}
+.tier-row{display:grid;grid-template-columns:52px 1fr 1fr 1fr 1fr;background:var(--white);border:1px solid var(--bdr);margin-bottom:2px;border-radius:10px;}
+.tier-row.feat{background:var(--paper);border-color:rgba(200,64,30,.25);}
+.tier-badge{display:flex;align-items:center;justify-content:center;font-family:'Instrument Serif',serif;font-size:24px;color:var(--ink4);padding:18px 10px;}
+.tier-row.feat .tier-badge{color:var(--accent);}
+.tier-cell{padding:16px 14px;border-left:1px solid var(--bdr2);}
+.tier-lbl{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);margin-bottom:4px;}
+.tier-val{font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;color:var(--ink);}
+.tier-row.feat .tier-val{color:var(--accent);}
+.tier-note{font-size:11.5px;color:var(--ink3);line-height:1.75;font-style:italic;padding:12px 14px;border:1px solid var(--bdr);border-radius:10px;background:var(--paper);}
+.why-now{margin-top:12px;padding:16px 18px;border:1px solid rgba(200,64,30,.2);background:var(--accent-light);border-radius:12px;}
+.wn-t{font-family:'DM Mono',monospace;font-size:9px;color:var(--accent);letter-spacing:.1em;text-transform:uppercase;margin-bottom:5px;}
+.wn-d{font-size:12px;color:var(--ink2);line-height:1.65;}
+
+/* ── ROADMAP ── */
+.phase-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;max-width:900px;}
+.phase{border-radius:14px;padding:26px 22px;border:1px solid var(--bdr);background:var(--white);position:relative;overflow:hidden;}
+.phase-stripe{position:absolute;top:0;left:0;right:0;height:3px;}
+.ph1{background:var(--accent);}
+.ph2{background:var(--blue);}
+.ph3{background:var(--green);}
+.phase-num{font-family:'Instrument Serif',serif;font-size:44px;color:var(--bdr);line-height:1;margin-bottom:12px;}
+.phase-lbl{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);margin-bottom:5px;}
+.phase-title{font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;margin-bottom:3px;}
+.phase-range{font-family:'DM Mono',monospace;font-size:10px;color:var(--accent);margin-bottom:14px;}
+.phase-pts{display:flex;flex-direction:column;gap:8px;}
+.phase-pt{font-size:12.5px;color:var(--ink2);display:flex;gap:9px;line-height:1.55;}
+.phase-pt::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--accent);opacity:.6;flex-shrink:0;margin-top:6px;}
+.phase-inv{margin-top:16px;padding:9px 13px;background:var(--paper);border-radius:8px;font-size:11px;color:var(--ink2);font-family:'DM Mono',monospace;letter-spacing:.02em;}
+
+/* ── CLOSE ── */
+.close-slide{background:var(--cover);align-items:center;justify-content:center;text-align:center;}
+.close-h{font-family:'Instrument Serif',serif;font-size:clamp(46px,7.5vw,90px);font-weight:400;line-height:.98;letter-spacing:-.02em;color:#fff;max-width:780px;margin:0 auto 20px;}
+.close-h .ac{color:var(--accent);}
+.close-tagline{font-size:16px;font-weight:300;color:rgba(255,255,255,.35);max-width:440px;margin:0 auto 44px;line-height:1.75;font-style:italic;}
+.close-cta{display:inline-block;padding:14px 44px;background:var(--accent);color:#fff;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;border-radius:100px;cursor:pointer;transition:opacity .2s,transform .15s;margin-bottom:52px;letter-spacing:.03em;}
+.close-cta:hover{opacity:.88;transform:translateY(-1px);}
+.close-stats{display:flex;justify-content:center;flex-wrap:wrap;gap:36px;margin-bottom:44px;}
+.close-stat-v{font-family:'Instrument Serif',serif;font-size:32px;color:#fff;}
+.close-stat-l{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.25);margin-top:4px;}
+.close-div{width:1px;height:42px;background:rgba(255,255,255,.1);align-self:center;}
+.close-ft{font-family:'DM Mono',monospace;font-size:10px;color:rgba(255,255,255,.18);letter-spacing:.06em;text-transform:uppercase;}
+
+@media(max-width:700px){
+  .slide{padding:44px 24px;}
+  .insight-grid,.dna-grid,.three-pillars,.proof-grid,.prod-secondary,.team-grid,.phase-grid,.moat-grid,.ue-wrap,.prod-hero-body,.mkt-wrap,.comp-layout,.gtm-phases,.gtm-channels,.ask-wrap,.tier-hd,.tier-row{grid-template-columns:1fr;}
+  .circles-wrap{width:280px;height:280px;}
+}
+</style>
+</head>
+<body>
+
+<div class="progress"><div class="pfill" id="pbar"></div></div>
+<div id="ctr">1 of 15</div>
+<div class="nav-dots" id="dots"></div>
+
+<!-- ══ S1: COVER ══ -->
+<div class="slide cover" id="s1">
+  <div class="sn" style="color:rgba(255,255,255,.2)">01</div>
+  <div class="cover-bar">
+    <div class="cover-logo">WithCompany</div>
+    <div class="cover-conf">Investor Deck · Confidential · 2025</div>
+  </div>
+  <div class="cover-body">
+    <div class="cover-tag"><span class="cover-tag-dot"></span><span class="cover-tag-txt">Brand Intelligence · Digital Build · Malaysia</span></div>
+    <h1 class="cover-h">We spot where<br>your business<br><span class="ac">bleeds value.</span><br><span class="soft">We build the fix.</span></h1>
+    <p class="cover-tagline">A new kind of company — part strategist, part builder. We find the revenue hiding inside businesses and turn it into working digital systems. Fast.</p>
+  </div>
+  <div class="cover-foot">
+    <div class="cover-team">Founded by &nbsp;·&nbsp; <strong>Lum</strong> &nbsp;·&nbsp; <strong>Xiao Yeen</strong> &nbsp;·&nbsp; <strong>Natalie</strong></div>
+    <div class="cover-hint">↓ scroll or arrow keys</div>
+  </div>
+</div>
+
+<!-- ══ S2: THE INSIGHT ══ -->
+<div class="slide paper" id="s2">
+  <div class="sn">02</div>
+  <div class="eyebrow accent">The Insight</div>
+  <h2 class="display">Malaysian businesses are sitting on<br><span class="accent">revenue they can't see.</span></h2>
+  <div class="insight-grid">
+    <div class="insight-card">
+      <div class="insight-ico">📋</div>
+      <div class="card-title">Dead customer data</div>
+      <div class="card-body">Hundreds of thousands of warranty registrations, purchase records, and service histories — untouched. No follow-up. No activation. Revenue left on the table after every sale.</div>
+    </div>
+    <div class="insight-card">
+      <div class="insight-ico">📱</div>
+      <div class="card-title">Salesmen running on WhatsApp</div>
+      <div class="card-body">Leads live in personal phonebooks. Pipeline is invisible to management. When a salesman leaves, the client list walks out with them. No system, no visibility, no recurring value.</div>
+    </div>
+    <div class="insight-card">
+      <div class="insight-ico">🏘️</div>
+      <div class="card-title">Property developers who stop at the handover</div>
+      <div class="card-body">Once keys are handed over, the developer loses the resident relationship entirely. No platform. No marketplace. No recurring revenue from the community they built.</div>
+    </div>
+    <div class="insight-card">
+      <div class="insight-ico">🔧</div>
+      <div class="card-title">Tech that doesn't fit the brand</div>
+      <div class="card-body">Generic SaaS tools get implemented and abandoned. No one thought about how the product feels to the customer. Adoption fails because the experience was never designed — it was assembled.</div>
+    </div>
+  </div>
+  <div class="callout blue" style="max-width:780px;">
+    <strong>The gap no one is filling:</strong> Companies don't lack technology. They lack a partner who understands both the business problem <em>and</em> the brand experience — and can build the solution fast. That's WithCompany.
+  </div>
+</div>
+
+<!-- ══ S3: WHO WE ARE ══ -->
+<div class="slide" id="s3">
+  <div class="sn">03</div>
+  <div class="eyebrow blue">What We Are</div>
+  <h2 class="display">Not an agency.<br>Not a dev shop.<br><span class="blue">Something new.</span></h2>
+  <div class="dna-grid">
+    <div class="dna-item">
+      <div class="dna-num">01</div>
+      <div class="dna-title">We diagnose first</div>
+      <div class="dna-body">We get in the room, listen closely, and find where value is leaking — before the client can even brief us properly. The Gaido warranty opportunity? Overheard in a casual conversation. That instinct is trained, not accidental.</div>
+    </div>
+    <div class="dna-item">
+      <div class="dna-num">02</div>
+      <div class="dna-title">We build with brand intelligence</div>
+      <div class="dna-body">10+ years in 4A advertising and brand strategy means the digital products we build don't just function — they feel right to the people using them. A dev shop builds features. We build experiences that match a brand's promise.</div>
+    </div>
+    <div class="dna-item">
+      <div class="dna-num">03</div>
+      <div class="dna-title">We ship in weeks, not months</div>
+      <div class="dna-body">AI-powered development and low-code tools have fundamentally changed our build speed. We now prototype and deploy what previously took a full dev team months. That speed changes our economics and our clients' expectations.</div>
+    </div>
+  </div>
+  <div class="callout accent" style="max-width:860px;">
+    <strong>The combination that doesn't exist elsewhere in Malaysia:</strong> Brand founders who can actually build. No dev shop has the brand layer. No brand agency can ship code. We sit in the gap — and that gap is wide.
+  </div>
+</div>
+
+<!-- ══ S4: UNFAIR ADVANTAGE ══ -->
+<div class="slide dark-slide" id="s4">
+  <div class="sn" style="color:rgba(255,255,255,.2)">04</div>
+  <div class="dark-ey">Our Unfair Advantage</div>
+  <h2 class="dark-h">Three layers.<br>No one has <span class="ac">all three.</span></h2>
+  <div class="three-pillars">
+    <div class="pillar">
+      <div class="pillar-num">01 / 03</div>
+      <div class="pillar-title">Diagnosis — We find it before it's briefed</div>
+      <div class="pillar-body">We're in the room when the real conversations happen. Proximity, observation, and 10 years of brand thinking means we spot hidden revenue leaks that clients haven't articulated yet. Then we propose the fix.</div>
+    </div>
+    <div class="pillar">
+      <div class="pillar-num">02 / 03</div>
+      <div class="pillar-title">Brand Intelligence — The solution means something</div>
+      <div class="pillar-body">Every product we build carries brand thinking. The customer journey, the naming, the feel — these aren't afterthoughts. They're built in from the first line of code. That's why adoption is higher and clients can't find a replacement.</div>
+    </div>
+    <div class="pillar">
+      <div class="pillar-num">03 / 03</div>
+      <div class="pillar-title">Speed — AI changes the economics</div>
+      <div class="pillar-body">With AI-assisted development, we build in weeks what used to take 6–9 months with a traditional dev team. Lower cost to build. Faster to revenue. More iterations per ringgit. This is a structural cost advantage that compounds.</div>
+    </div>
+  </div>
+  <p class="dark-close"><strong>The result:</strong> We don't solve the brief. We solve the business. Every engagement uncovers more — and becomes harder to leave.</p>
+</div>
+
+<!-- ══ S5: PROOF ══ -->
+<div class="slide paper" id="s5">
+  <div class="sn">05</div>
+  <div class="eyebrow green">Proof of the Model</div>
+  <h2 class="display">The pattern works.<br><span class="blue">We've done it three times.</span></h2>
+  <div class="proof-grid">
+    <div class="proof-card">
+      <div class="proof-header">
+        <div class="proof-name">Property Developer Client</div>
+        <span class="chip blue">10-Year Relationship</span>
+      </div>
+      <div class="proof-body">
+        <div class="proof-problem">Brief: Design bus stop panel advertising</div>
+        <div class="proof-solution">We proposed a city-wide activation instead — 50,000 free umbrellas distributed across the city, encouraging residents to share them after use. It aligned with the developer's brand promise and created genuine public conversation.</div>
+        <div class="proof-result blue"><strong>Result:</strong> Campaign became a brand moment people still talk about. Proof that we don't just execute — we elevate.</div>
+      </div>
+    </div>
+    <div class="proof-card">
+      <div class="proof-header">
+        <div class="proof-name">Millenium Auto — BMW</div>
+        <span class="chip green">CRM · Live · Collaboration</span>
+      </div>
+      <div class="proof-body">
+        <div class="proof-problem">Problem: Salesmen storing all leads in personal phones — management blind, leads disappearing when staff leave</div>
+        <div class="proof-solution">A custom sales CRM app was built in collaboration with a low-code development partner — featuring stock checking, lead tracking, and salesman performance dashboards.</div>
+        <div class="proof-result green"><strong>Result:</strong> Zero leads lost to departing staff. Live and in use today — proof of the model and our collaborative build network.</div>
+      </div>
+    </div>
+    <div class="proof-card" style="grid-column:1/-1;">
+      <div class="proof-header">
+        <div class="proof-name">Gaido Spare Parts — Warranty Activation Platform</div>
+        <span class="chip accent">Figma Prototype Ready · Pitching Now</span>
+      </div>
+      <div class="proof-body" style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+        <div>
+          <div class="proof-problem">How we found it: Overheard the MD ask his sales team about hundreds of thousands of dormant warranty records. The team nodded. We saw a product.</div>
+          <div class="proof-solution">Gaido has a warranty programme with a massive customer database — all sitting idle. Our platform activates this data: notifying customers when warranties expire, connecting them to certified technicians, driving recurring parts sales back through Gaido's ecosystem.</div>
+        </div>
+        <div>
+          <div class="proof-result green" style="margin-bottom:10px;"><strong>For Gaido:</strong> Dormant data becomes a recurring revenue engine. Every expired warranty is a new sales opportunity.</div>
+          <div class="proof-result blue" style="margin-bottom:10px;"><strong>For customers:</strong> Their car is protected with original parts. Service is streamlined and trusted.</div>
+          <div class="proof-result" style="background:var(--accent-light);color:var(--accent);border:1px solid rgba(200,64,30,.15);"><strong>The bigger play:</strong> This problem exists across every industry with a service lifecycle — tyres, batteries, solar, air-con. Gaido is client one of many.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ S6: PRODUCTS ══ -->
+<div class="slide" id="s6">
+  <div class="sn">06</div>
+  <div class="eyebrow accent">Product Portfolio</div>
+  <h2 class="display">Two platforms.<br><span class="accent">One scalable model.</span></h2>
+  <div class="prod-hero">
+    <div class="prod-hero-header">
+      <div>
+        <div class="label" style="margin-bottom:4px;">Lead Product</div>
+        <div class="prod-hero-title">WarrantyOS — Service Lifecycle Activation Platform</div>
+      </div>
+      <span class="chip accent">In Active Development</span>
+    </div>
+    <div class="prod-hero-body">
+      <div>
+        <div class="prod-detail-label">The Problem It Solves</div>
+        <div class="prod-detail-val">Every company with a warranty or service programme has hundreds of thousands of customer records sitting idle after the sale. WarrantyOS activates that dead data — turning it into recurring revenue.</div>
+      </div>
+      <div>
+        <div class="prod-detail-label">How It Works</div>
+        <div class="prod-detail-val">Automated expiry alerts → customer re-engagement → certified vendor marketplace → original parts/service upsell. The customer gets peace of mind. The brand gets recurring revenue.</div>
+      </div>
+      <div>
+        <div class="prod-detail-label">Why It Scales</div>
+        <div class="prod-detail-val">Built once for Gaido, licensed to the next spare parts brand, tyre company, solar installer, air-con service provider. Each deployment compounds the IP value. Second client in same vertical costs 60–70% less.</div>
+      </div>
+    </div>
+  </div>
+  <div class="prod-secondary">
+    <div class="prod-sec-card">
+      <div class="eyebrow gold" style="margin-bottom:8px;">Vision Product</div>
+      <div class="prod-sec-title">PropOS — Property Resident Super App</div>
+      <div class="prod-sec-body">Property developers hand over keys and lose the resident relationship entirely. PropOS keeps them in the ecosystem — smart access, FM services, marketplace, community features, and data intelligence. Turns the resident base into a recurring revenue platform. Anchor client: a property developer we have served for over 10 years — in active conversation.</div>
+      <span class="chip gold">Concept Stage · Anchor Client in Conversation</span>
+    </div>
+    <div class="prod-sec-card">
+      <div class="eyebrow blue" style="margin-bottom:8px;">Agency Engine</div>
+      <div class="prod-sec-title">Embedded Brand &amp; Marketing Services</div>
+      <div class="prod-sec-body">Our agency work is not a separate business — it's how we get in the room. Retainer-based brand strategy, campaign systems, and creative services with clients in property and solar keep revenue flowing while platforms are being built. Each retainer relationship is a pipeline for the next platform deployment.</div>
+      <span class="chip blue">Ongoing · Revenue Now</span>
+    </div>
+  </div>
+</div>
+
+<!-- ══ S7: MARKET SIZE ══ -->
+<div class="slide paper" id="s7">
+  <div class="sn">07</div>
+  <div class="eyebrow blue">Market Size</div>
+  <h2 class="display">A <span class="accent">RM 7B+</span> combined market.<br><span class="muted">90% underserved.</span></h2>
+  <div class="mkt-wrap">
+    <div>
+      <div class="circles-wrap">
+        <div class="circ c-tam"></div>
+        <div class="circ c-sam"></div>
+        <div class="circ c-som"></div>
+        <div class="cl cl-tam"><div class="cl-lbl">TAM</div><div class="cl-val">RM 7B+</div><div class="cl-sub">Marketing + SaaS + PropTech</div></div>
+        <div class="cl cl-sam"><div class="cl-lbl">SAM</div><div class="cl-val">RM 920M</div><div class="cl-sub">Brand-led digital platforms</div></div>
+        <div class="cl cl-som"><div class="cl-lbl">SOM</div><div class="cl-val">RM 18.5M</div><div class="cl-sub">Y5 target</div></div>
+      </div>
+    </div>
+    <div class="mkt-stats">
+      <p style="font-size:14px;color:var(--ink2);line-height:1.75;margin-bottom:16px;font-weight:300;">Malaysia has no player combining vertical-specific digital platforms with brand intelligence at SME-grade pricing. The market is large, fragmented, and relationship-driven — exactly where WithCompany wins.</p>
+      <div class="ms bl"><div class="ms-v">RM 4.2B</div><div class="ms-l">Malaysia Marketing Services TAM</div><div class="ms-d">Agency, digital, and strategic services. Underpenetrated by embedded brand-plus-build players.</div></div>
+      <div class="ms ac"><div class="ms-v">RM 2.8B</div><div class="ms-l">Malaysian B2B SaaS &amp; PropTech</div><div class="ms-d">Fragmented, vertical-specific, ripe for purpose-built platforms with brand intelligence baked in.</div></div>
+      <div class="ms go"><div class="ms-v">RM 4.3M</div><div class="ms-l">WithCompany Year 3 Target</div><div class="ms-d">Blended agency retainer + platform licensing. Achievable with 6 retainer clients and 3+ platform licensees.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ S8: COMPETITIVE LANDSCAPE ══ -->
+<div class="slide" id="s8">
+  <div class="sn">08</div>
+  <div class="eyebrow accent">Competitive Landscape</div>
+  <h2 class="display">Nobody else sits in<br><span class="accent">this quadrant.</span></h2>
+  <div class="comp-layout">
+    <div class="xy-wrap">
+      <div class="ax-yl">Industry Specificity →</div>
+      <div class="xy-area">
+        <div class="xy-sweet"></div>
+        <div class="ax-ql" style="top:9px;left:52%;">↗ Sweet Spot</div>
+        <div class="ax-xl">Affordability for SME →</div>
+        <div class="ax-lo" style="bottom:-18px;left:0;">Expensive</div>
+        <div class="ax-lo" style="bottom:-18px;right:0;">Affordable</div>
+        <div class="ax-lo" style="bottom:0;left:-40px;">Generic</div>
+        <div class="ax-lo" style="top:0;left:-40px;">Specific</div>
+        <!-- grid lines -->
+        <div style="position:absolute;left:50%;top:0;bottom:0;width:1px;background:var(--bdr);"></div>
+        <div style="position:absolute;top:50%;left:0;right:0;height:1px;background:var(--bdr);"></div>
+        <!-- SAP -->
+        <div class="cp" style="left:7%;top:68%;"><div class="cp-dot" style="width:18px;height:18px;background:rgba(224,61,24,.75);border-radius:50%;"></div><div class="cp-label r">SAP S/4HANA</div></div>
+        <!-- NetSuite -->
+        <div class="cp" style="left:13%;top:60%;"><div class="cp-dot" style="width:14px;height:14px;background:rgba(224,61,24,.55);border-radius:50%;"></div><div class="cp-label r">Oracle NetSuite</div></div>
+        <!-- Dynamics -->
+        <div class="cp" style="left:20%;top:54%;"><div class="cp-dot" style="width:13px;height:13px;background:rgba(200,100,40,.5);border-radius:50%;"></div><div class="cp-label r">MS Dynamics 365</div></div>
+        <!-- Odoo -->
+        <div class="cp" style="left:64%;top:72%;"><div class="cp-dot" style="width:11px;height:11px;background:rgba(100,100,100,.5);border-radius:50%;"></div><div class="cp-label b">Odoo / Generic SaaS</div></div>
+        <!-- Spreadsheets -->
+        <div class="cp" style="left:82%;top:82%;"><div class="cp-dot" style="width:10px;height:10px;background:rgba(100,100,100,.35);border-radius:50%;"></div><div class="cp-label t">Spreadsheets</div></div>
+        <!-- iSetia -->
+        <div class="cp" style="left:70%;top:22%;"><div class="cp-dot" style="width:11px;height:11px;background:rgba(16,85,187,.55);border-radius:50%;"></div><div class="cp-label b">iSetia (construction)</div></div>
+        <!-- Custom dev -->
+        <div class="cp" style="left:11%;top:26%;"><div class="cp-dot" style="width:12px;height:12px;background:rgba(224,61,24,.35);border-radius:50%;"></div><div class="cp-label r">Custom Dev Agencies</div></div>
+        <!-- WithCompany -->
+        <div class="cp" style="left:80%;top:11%;">
+          <div class="wc-ring" style="width:48px;height:48px;"></div>
+          <div class="cp-dot" style="width:24px;height:24px;background:var(--accent);box-shadow:0 0 18px rgba(224,61,24,.45);border-radius:50%;"></div>
+          <div class="cp-label l" style="color:var(--accent);font-weight:600;font-size:10px;">WithCompany ERP</div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="comp-legend">
+        <div class="cleg wc"><div class="cleg-dot" style="background:var(--accent);"></div><div><div class="cleg-n">WithCompany ERP</div><div class="cleg-d">RM 50/user/mo · vertical-built · 8–16 wk deploy · embedded support</div></div></div>
+        <div class="cleg"><div class="cleg-dot" style="background:rgba(224,61,24,.7);"></div><div><div class="cleg-n">SAP / NetSuite / Dynamics</div><div class="cleg-d">RM 465–940+/user/mo · 6–24 month deploy · generic config</div></div></div>
+        <div class="cleg"><div class="cleg-dot" style="background:rgba(16,85,187,.55);"></div><div><div class="cleg-n">iSetia (PMIS)</div><div class="cleg-d">RM 47–140/user/mo · construction only · not operations ERP</div></div></div>
+        <div class="cleg"><div class="cleg-dot" style="background:rgba(100,100,100,.5);"></div><div><div class="cleg-n">Generic SaaS / Spreadsheets</div><div class="cleg-d">Affordable but zero vertical depth. No upgrade path.</div></div></div>
+        <div class="cleg"><div class="cleg-dot" style="background:rgba(224,61,24,.35);"></div><div><div class="cleg-n">Custom Dev Agencies</div><div class="cleg-d">Vertically specific but expensive, slow, no IP reuse model</div></div></div>
+      </div>
+      <div class="comp-verdict">↗ WithCompany is the only player combining vertical-specific ERP with SME-grade pricing and a SaaS licensing model. This quadrant is unclaimed.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ S9: COMPETITIVE MOAT ══ -->
+<div class="slide paper" id="s9">
+  <div class="sn">09</div>
+  <div class="eyebrow accent">Competitive Moat</div>
+  <h2 class="display">Why no one can<br><span class="accent">copy this combination.</span></h2>
+  <div class="moat-grid">
+    <div>
+      <div class="moat-col-hd wc">WithCompany</div>
+      <div class="moat-card wc"><div class="moat-card-t">We find the problem before it's briefed</div><div class="moat-card-d">Gaido was an overheard conversation. The Umbrella campaign started as a bus stop brief. Our diagnostic instinct is trained over 10 years — it can't be hired from a job board.</div></div>
+      <div class="moat-card wc"><div class="moat-card-t">Brand brain + build capability in one team</div><div class="moat-card-d">No dev shop in Malaysia has our brand thinking. No branding agency can ship working code. We're the only team that does both under one retainer.</div></div>
+      <div class="moat-card wc"><div class="moat-card-t">Relationships that took a decade to build</div><div class="moat-card-d">Our property, solar, and automotive clients aren't cold-call clients. They're relationships built through trust. Our network gives us rooms others don't get invited into.</div></div>
+      <div class="moat-card wc"><div class="moat-card-t">AI speed changes our cost structure permanently</div><div class="moat-card-d">We build in weeks at a fraction of traditional dev cost. That gap is widening. Competitors relying on full dev teams are structurally slower — and that doesn't reverse.</div></div>
+    </div>
+    <div>
+      <div class="moat-col-hd them">Everyone Else</div>
+      <div class="moat-card them"><div class="moat-card-t">Traditional branding agencies</div><div class="moat-card-d">Can think about the brand. Can't build the product. Deliver a campaign, collect a fee, reset. No recurring value, no platform, no compound advantage.</div></div>
+      <div class="moat-card them"><div class="moat-card-t">Generic SaaS / dev houses</div><div class="moat-card-d">Can build the software. Have no brand layer. Clients still need an agency alongside — WithCompany replaces both with one.</div></div>
+      <div class="moat-card them"><div class="moat-card-t">Big consultancies</div><div class="moat-card-d">Strategic depth but no build arm, no tech IP, far too expensive for Malaysian mid-market. Can't move at our speed.</div></div>
+      <div class="moat-card them"><div class="moat-card-t">In-house teams</div><div class="moat-card-d">No cross-industry pattern recognition. Can't build platforms. Cost more in headcount. Lack the external perspective that makes our diagnosis valuable.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ S10: TEAM ══ -->
+<div class="slide" id="s10">
+  <div class="sn">10</div>
+  <div class="eyebrow blue">The Team</div>
+  <h2 class="display">Three founders.<br><span class="blue">Zero gaps.</span></h2>
+  <div class="team-grid">
+    <div class="tmem">
+      <div class="tmem-role">Chief Executive Officer</div>
+      <div class="tmem-name">Lum</div>
+      <div class="tmem-focus">Technology · Build · P&L</div>
+      <div class="tmem-pts">
+        <div class="tmem-pt">Founded GPC Digital — grew to 40 people at peak, serving major financial institutions including RHB and HSBC for 5+ years each</div>
+        <div class="tmem-pt">4A agency background with deep brand strategy experience across advertising, digital, and creative</div>
+        <div class="tmem-pt">Serial low-code builder — multiple digital platform businesses built and deployed using low-code and AI-powered development tools</div>
+        <div class="tmem-pt">Architect of WarrantyOS and the WithCompany platform model; owns overall P&L and delivery</div>
+      </div>
+    </div>
+    <div class="tmem">
+      <div class="tmem-role">Chief Strategy Officer</div>
+      <div class="tmem-name">Xiao Yeen</div>
+      <div class="tmem-focus">Strategy · Pricing · Client ROI</div>
+      <div class="tmem-pts">
+        <div class="tmem-pt">Designs service architecture and pricing models to ensure measurable client return</div>
+        <div class="tmem-pt">Leads purpose-driven brand frameworks and responsible messaging for clients</div>
+        <div class="tmem-pt">Co-architect of the WithCompany embedded delivery model</div>
+        <div class="tmem-pt">Strategic lead on all board-level positioning and pitch framing</div>
+      </div>
+    </div>
+    <div class="tmem">
+      <div class="tmem-role">Chief Partnership Officer</div>
+      <div class="tmem-name">Natalie</div>
+      <div class="tmem-focus">Investors · Partnerships · Network</div>
+      <div class="tmem-pts">
+        <div class="tmem-pt">Primary interface for investor relations and all partnership conversion discussions</div>
+        <div class="tmem-pt">Manages key client relationships including institutional and corporate stakeholders</div>
+        <div class="tmem-pt">Builds and activates the external network that turns strategy into signed retainers</div>
+        <div class="tmem-pt">Owns the investor and partner pipeline, managing all key investor and strategic partner relationships</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ S11: GTM ══ -->
+<div class="slide paper" id="s11">
+  <div class="sn">11</div>
+  <div class="eyebrow green">Go-To-Market</div>
+  <h2 class="display">Embed first.<br><span class="green">Scale through vertical proof.</span></h2>
+  <div class="gtm-phases">
+    <div class="gph">
+      <div class="gph-n">01</div>
+      <div class="gph-period">Months 0–6</div>
+      <div class="gph-t">Anchor &amp; Prove</div>
+      <div class="gph-pts">
+        <div class="gph-pt">Close 3 Tier 1 + 1 Tier 2 retainers via investor &amp; founding network</div>
+        <div class="gph-pt">Complete Millenium &amp; Gaido → publish case studies</div>
+        <div class="gph-pt">Document hard ROI metrics from Day 1 of each deployment</div>
+        <div class="gph-pt">Establish vertical reference playbooks for reuse</div>
+      </div>
+      <div class="gph-target">Target: RM 2.08M Year 1</div>
+    </div>
+    <div class="gph">
+      <div class="gph-n">02</div>
+      <div class="gph-period">Months 6–18</div>
+      <div class="gph-t">Replicate &amp; Scale</div>
+      <div class="gph-pts">
+        <div class="gph-pt">Use case study to enter next company in same vertical</div>
+        <div class="gph-pt">Open 3rd ERP vertical — logistics or F&amp;B targeted</div>
+        <div class="gph-pt">Add more Bubble Coders + designers to scale delivery</div>
+        <div class="gph-pt">PropOS pilot with first property developer</div>
+      </div>
+      <div class="gph-target">Target: RM 3.65M Year 2</div>
+    </div>
+    <div class="gph">
+      <div class="gph-n">03</div>
+      <div class="gph-period">Month 18+</div>
+      <div class="gph-t">Platform &amp; Region</div>
+      <div class="gph-pts">
+        <div class="gph-pt">4+ ERP verticals — near-pure margin on every reuse</div>
+        <div class="gph-pt">Data intelligence licensing to banks and institutional buyers</div>
+        <div class="gph-pt">Singapore &amp; Indonesia as first regional markets</div>
+        <div class="gph-pt">Partner referral: accountants, banks, law firms</div>
+      </div>
+      <div class="gph-target">Target: RM 6.31M Year 3</div>
+    </div>
+  </div>
+  <div class="gtm-channels">
+    <div class="gch"><div class="gch-ico">🤝</div><div class="gch-t">Investor Network</div><div class="gch-d">Strategic investors open C-suite doors — converting capital into signed contracts and warm introductions</div></div>
+    <div class="gch"><div class="gch-ico">📋</div><div class="gch-t">ESG / Bursa Urgency</div><div class="gch-d">Mandatory reporting creates demand for ops data — ERP is the only solution</div></div>
+    <div class="gch"><div class="gch-ico">🔁</div><div class="gch-t">Vertical Referral</div><div class="gch-d">One manufacturer introduces to 2 others with validated proof of ROI</div></div>
+    <div class="gch"><div class="gch-ico">💰</div><div class="gch-t">DigitalSME Grant</div><div class="gch-d">Government 80% rebate makes RM 350K feel like RM 70K to the client</div></div>
+  </div>
+</div>
+
+
+<!-- ══ S12: UNIT ECONOMICS ══ -->
+<div class="slide" id="s12">
+  <div class="sn">12</div>
+  <div class="eyebrow accent">Unit Economics · Year 1</div>
+  <h2 class="display">Revenue covers <span class="accent">2.84× operating costs</span><br><span class="muted">in the first year.</span></h2>
+  <div class="ue-wrap">
+    <div>
+      <div class="uec" style="margin-bottom:12px;">
+        <div class="uec-lbl">Year 1 P&L Summary</div>
+        <div class="uec-row"><span class="uec-k">ERP Projects (2 × Basic)</span><span class="uec-v g">RM 700,000</span></div>
+        <div class="uec-row"><span class="uec-k">Agency Retainers (3T1 + 1T2)</span><span class="uec-v g">RM 1,320,000</span></div>
+        <div class="uec-row"><span class="uec-k">SaaS Subscriptions</span><span class="uec-v g">RM 60,000</span></div>
+        <div class="uec-row"><span class="uec-k strong">Total Revenue</span><span class="uec-v big g">RM 2,080,000</span></div>
+        <div class="uec-row"><span class="uec-k">Salaries — 7 headcount</span><span class="uec-v rd">− RM 564,000</span></div>
+        <div class="uec-row"><span class="uec-k">EPF employer (13% on RM 564K)</span><span class="uec-v rd">− RM 73,320</span></div>
+        <div class="uec-row"><span class="uec-k">Infrastructure (computers, software, other)</span><span class="uec-v rd">− RM 94,000</span></div>
+        <div class="uec-row"><span class="uec-k strong">Total OpEx Year 1</span><span class="uec-v rd" style="font-family:'Instrument Serif',serif;font-size:18px;">− RM 731,320</span></div>
+        <div class="uec-row"><span class="uec-k strong">Operating Surplus Y1</span><span class="uec-v big gr">RM 1,348,680</span></div>
+        <div class="uec-highlight"><strong>Revenue covers 2.84× total operating cost in Year 1.</strong> The company is strongly cashflow-positive from revenue alone — this investment accelerates growth, it does not fund survival.</div>
+      </div>
+      <div class="uec">
+        <div class="uec-lbl">SaaS Unit Economics</div>
+        <div class="uec-row"><span class="uec-k">Price per user per month</span><span class="uec-v g">RM 50</span></div>
+        <div class="uec-row"><span class="uec-k">vs. SAP S/4HANA</span><span class="uec-v">18.8× cheaper</span></div>
+        <div class="uec-row"><span class="uec-k">Avg users per SME client</span><span class="uec-v">50–200 users</span></div>
+        <div class="uec-row"><span class="uec-k">ARR per client</span><span class="uec-v g">RM 30K–120K</span></div>
+        <div class="uec-row"><span class="uec-k">Platform margin at 10+ clients</span><span class="uec-v gr">80–90%</span></div>
+      </div>
+    </div>
+    <div>
+      <div class="uec">
+        <div class="uec-lbl">Year 1 Operating Cost Breakdown — RM 731,320</div>
+        <div class="opex-chart">
+          <div class="opex-row"><span class="opex-lbl">Core team (RM 12K+10K+10K)</span><div class="opex-bar-wrap"><div class="opex-bar" style="width:39.4%"></div></div><span class="opex-val">RM 288,000</span></div>
+          <div class="opex-row"><span class="opex-lbl">Bubble Coder (1 × RM 10K)</span><div class="opex-bar-wrap"><div class="opex-bar" style="width:13.6%"></div></div><span class="opex-val">RM 120,000</span></div>
+          <div class="opex-row"><span class="opex-lbl">Designers (2 × RM 5K)</span><div class="opex-bar-wrap"><div class="opex-bar" style="width:13.1%"></div></div><span class="opex-val">RM 96,000</span></div>
+          <div class="opex-row"><span class="opex-lbl">Mid-level coder (1 × RM 7K)</span><div class="opex-bar-wrap"><div class="opex-bar" style="width:8.2%"></div></div><span class="opex-val">RM 60,000</span></div>
+          <div class="opex-row"><span class="opex-lbl">EPF employer (13%)</span><div class="opex-bar-wrap"><div class="opex-bar" style="width:10.0%"></div></div><span class="opex-val">RM 73,320</span></div>
+          <div class="opex-row"><span class="opex-lbl">Computers (5 units)</span><div class="opex-bar-wrap"><div class="opex-bar" style="width:4.8%"></div></div><span class="opex-val">RM 35,000</span></div>
+          <div class="opex-row"><span class="opex-lbl">Software licences (5)</span><div class="opex-bar-wrap"><div class="opex-bar" style="width:3.8%"></div></div><span class="opex-val">RM 28,000</span></div>
+          <div class="opex-row"><span class="opex-lbl">Co-sec, co-working, other</span><div class="opex-bar-wrap"><div class="opex-bar" style="width:3.5%"></div></div><span class="opex-val">RM 31,000</span></div>
+        </div>
+        <div class="opex-total">
+          <span class="opex-total-l">Total Year 1 OpEx</span>
+          <span class="opex-total-v">RM 731,320</span>
+        </div>
+      </div>
+      <div style="margin-top:12px;" class="callout gold">
+        <strong>Why investment is accelerant, not oxygen:</strong> Year 1 revenue already covers full operations with RM 1.35M+ surplus. Investment funds ERP product build and team scale-up — not payroll. The business grows faster with it, not because of it.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ S13: FINANCIALS ══ -->
+<div class="slide paper" id="s13">
+  <div class="sn">13</div>
+  <div class="eyebrow accent">Financial Projections</div>
+  <h2 class="display">RM 2.08M → <span class="accent">RM 10.0M</span><br><span class="muted">five years. Profitable from Y1.</span></h2>
+  <div class="fin-tabs">
+    <div class="fin-tab active" onclick="showFin('5yr',this)">5-Year Overview</div>
+    <div class="fin-tab" onclick="showFin('y1',this)">Year 1 P&L</div>
+    <div class="fin-tab" onclick="showFin('y2',this)">Year 2 Detail</div>
+    <div class="fin-tab" onclick="showFin('proj',this)">Revenue Mix</div>
+  </div>
+
+  <div class="fin-panel active" id="fin-5yr">
+    <div class="fleg5">
+      <div class="fleg5-item"><div class="fleg5-dot" style="background:var(--accent);opacity:.65;"></div>Agency Retainers</div>
+      <div class="fleg5-item"><div class="fleg5-dot" style="background:var(--blue);opacity:.7;"></div>ERP Projects</div>
+      <div class="fleg5-item"><div class="fleg5-dot" style="background:var(--green);"></div>SaaS ARR</div>
+    </div>
+    <div class="bars5" id="bar5"></div>
+    <table class="rtable">
+      <thead><tr><th>Stream</th><th style="text-align:right">Y1</th><th style="text-align:right">Y2</th><th style="text-align:right">Y3</th><th style="text-align:right">Y4</th><th style="text-align:right">Y5</th></tr></thead>
+      <tbody>
+        <tr><td><div class="rs">ERP Projects</div><div class="rsub">Basic + Advance implementations</div></td><td style="text-align:right">700,000</td><td style="text-align:right">1,500,000</td><td style="text-align:right">3,060,000</td><td style="text-align:right">4,810,000</td><td style="text-align:right">4,620,000</td></tr>
+        <tr><td><div class="rs">Agency Retainers</div><div class="rsub">Tier 1–3 embedded retainers</div></td><td style="text-align:right">1,320,000</td><td style="text-align:right">1,440,000</td><td style="text-align:right">2,760,000</td><td style="text-align:right">2,760,000</td><td style="text-align:right">4,140,000</td></tr>
+        <tr><td><div class="rs">SaaS Subscriptions</div><div class="rsub">RM 50/user/mo recurring</div></td><td style="text-align:right">60,000</td><td style="text-align:right">710,000</td><td style="text-align:right">490,000</td><td style="text-align:right">845,000</td><td style="text-align:right">1,280,000</td></tr>
+        <tr class="rsr"><td><div class="rs">Total Revenue</div></td><td style="text-align:right"><div class="ram">2,080,000</div></td><td style="text-align:right"><div class="ram">3,650,000</div></td><td style="text-align:right"><div class="ram">6,310,000</div></td><td style="text-align:right"><div class="ram">8,415,000</div></td><td style="text-align:right"><div class="ram">10,040,000</div></td></tr>
+        <tr><td style="font-size:10px;color:var(--ink3)">YoY Growth</td><td style="text-align:right;font-size:10px;color:var(--ink3)">—</td><td style="text-align:right;font-size:11px;color:var(--green)">+75%</td><td style="text-align:right;font-size:11px;color:var(--green)">+73%</td><td style="text-align:right;font-size:11px;color:var(--green)">+33%</td><td style="text-align:right;font-size:11px;color:var(--green)">+19%</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="fin-panel" id="fin-y1">
+    <table class="rtable">
+      <thead><tr><th>Line Item</th><th>Note</th><th style="text-align:right">Annual (RM)</th></tr></thead>
+      <tbody>
+        <tr><td colspan="3" class="rsec">REVENUE</td></tr>
+        <tr><td><div class="rs">Tier 1 Retainer (×3)</div><div class="rsub">RM 25K/mo × 3 × 12</div></td><td style="font-size:12px;color:var(--ink3)">Full year</td><td style="text-align:right"><div class="ram" style="color:var(--green);">900,000</div></td></tr>
+        <tr><td><div class="rs">Tier 2 Retainer (×1)</div><div class="rsub">RM 35K/mo × 1 × 12</div></td><td style="font-size:12px;color:var(--ink3)">Full year</td><td style="text-align:right"><div class="ram" style="color:var(--green);">420,000</div></td></tr>
+        <tr><td><div class="rs">Basic ERP Projects (×2)</div><div class="rsub">Millenium + Gaido</div></td><td style="font-size:12px;color:var(--ink3)">One-time</td><td style="text-align:right"><div class="ram" style="color:var(--green);">700,000</div></td></tr>
+        <tr><td><div class="rs">SaaS Subscriptions</div><div class="rsub">2 cos × 50 users × RM 50</div></td><td style="font-size:12px;color:var(--ink3)">Recurring</td><td style="text-align:right"><div class="ram" style="color:var(--green);">60,000</div></td></tr>
+        <tr class="rsr"><td colspan="2"><div class="rs">Total Revenue</div></td><td style="text-align:right"><div class="ram">2,080,000</div></td></tr>
+        <tr><td colspan="3" class="rsec">OPERATING COSTS</td></tr>
+        <tr><td><div class="rs">Team Salaries (7 staff)</div><div class="rsub">Core 12K+10K+10K · Coder 10K · Design 2×5K · Mid 7K</div></td><td style="font-size:12px;color:var(--ink3)">Monthly</td><td style="text-align:right;color:var(--accent);">(564,000)</td></tr>
+        <tr><td><div class="rs">EPF Employer (13%)</div><div class="rsub">On RM 564K salary base</div></td><td style="font-size:12px;color:var(--ink3)">Statutory</td><td style="text-align:right;color:var(--accent);">(73,320)</td></tr>
+        <tr><td><div class="rs">Infrastructure</div><div class="rsub">Computers ×5, software ×5, co-sec, co-working</div></td><td style="font-size:12px;color:var(--ink3)">Mixed</td><td style="text-align:right;color:var(--accent);">(94,000)</td></tr>
+        <tr class="rsr"><td colspan="2"><div class="rs">Total OpEx</div></td><td style="text-align:right"><div class="ram">(731,320)</div></td></tr>
+        <tr style="background:var(--green-light);"><td colspan="2"><div class="rs" style="color:var(--green);">Operating Surplus Y1</div></td><td style="text-align:right"><div class="ram" style="color:var(--green);font-size:20px;">1,348,680</div></td></tr>
+        <tr><td style="font-size:10px;color:var(--ink3)">Revenue / OpEx cover ratio</td><td></td><td style="text-align:right;font-size:13px;color:var(--green);font-weight:600;">2.84×</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="fin-panel" id="fin-y2">
+    <table class="rtable">
+      <thead><tr><th>Revenue Stream</th><th>Detail</th><th style="text-align:right">Annual (RM)</th></tr></thead>
+      <tbody>
+        <tr><td><div class="rs">Tier 1 + 2 Retainers</div><div class="rsub">Tier 1 + Tier 2 clients</div></td><td style="font-size:12px;color:var(--ink2)">Full year</td><td style="text-align:right"><div class="ram">1,440,000</div></td></tr>
+        <tr><td><div class="rs">ERP Projects</div><div class="rsub">Basic + Advance implementations</div></td><td style="font-size:12px;color:var(--ink2)">One-time</td><td style="text-align:right"><div class="ram">1,500,000</div></td></tr>
+        <tr><td><div class="rs">SaaS Subscriptions</div><div class="rsub">Growing user + client base</div></td><td style="font-size:12px;color:var(--ink2)">Recurring</td><td style="text-align:right"><div class="ram">710,000</div></td></tr>
+        <tr class="rsr"><td colspan="2"><div class="rs">Total Year 2</div></td><td style="text-align:right"><div class="ram">RM 3,650,000</div></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="fin-panel" id="fin-proj">
+    <div class="callout blue" style="max-width:860px;margin-bottom:18px;font-size:13px;">
+      <strong>Revenue logic:</strong> Agency retainers are our <strong>base — steady, relationship-driven, and our runway</strong>. ERP project fees are our <strong>primary growth engine</strong> in early years. SaaS subscriptions compound quietly, then accelerate sharply as the installed base grows. By Y3, all three streams are significant.
+    </div>
+    <div class="pleg">
+      <div class="pleg-item"><div class="pleg-dot" style="background:var(--accent)"></div>Agency Retainers</div>
+      <div class="pleg-item"><div class="pleg-dot" style="background:var(--blue)"></div>ERP Project Revenue</div>
+      <div class="pleg-item"><div class="pleg-dot" style="background:var(--green)"></div>SaaS ARR</div>
+    </div>
+    <div class="pbars" id="proj-bars"></div>
+    <table class="rtable">
+      <thead><tr><th></th><th style="text-align:right">Y1</th><th style="text-align:right">Y2</th><th style="text-align:right">Y3</th><th style="text-align:right">Growth Driver</th></tr></thead>
+      <tbody>
+        <tr><td><div class="rs">Agency Retainers</div><div class="rsub">Steady base — funds the runway</div></td><td style="text-align:right;color:var(--ink2)">1,320,000</td><td style="text-align:right;color:var(--ink2)">1,440,000</td><td style="text-align:right;color:var(--ink2)">2,760,000</td><td style="text-align:right;font-size:12px;color:var(--ink3)">+9% → +92%<br><span style="color:var(--ink4)">stable then scale</span></td></tr>
+        <tr><td><div class="rs">ERP Projects</div><div class="rsub">Vertical IP — compounding margin</div></td><td style="text-align:right;color:var(--blue)">700,000</td><td style="text-align:right;color:var(--blue)">1,500,000</td><td style="text-align:right;color:var(--blue)">3,060,000</td><td style="text-align:right;font-size:12px;color:var(--blue)">+114% → +104%<br><span style="color:var(--blue);opacity:.7">primary engine</span></td></tr>
+        <tr><td><div class="rs">SaaS Subscriptions</div><div class="rsub">Recurring — low marginal cost</div></td><td style="text-align:right;color:var(--green)">60,000</td><td style="text-align:right;color:var(--green)">710,000</td><td style="text-align:right;color:var(--green)">490,000</td><td style="text-align:right;font-size:12px;color:var(--green)">+1,083% → scaling<br><span style="color:var(--green);opacity:.7">compounding ARR</span></td></tr>
+        <tr class="rsr"><td><div class="rs">Grand Total</div></td><td style="text-align:right"><div class="ram">2,080,000</div></td><td style="text-align:right"><div class="ram">3,650,000</div></td><td style="text-align:right"><div class="ram">6,310,000</div></td><td style="text-align:right"><div class="ram" style="font-size:14px;color:var(--green)">+75% → +73%</div></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ══ S14: THE ASK ══ -->
+<div class="slide paper" id="s14">
+  <div class="sn">14</div>
+  <div class="eyebrow accent">The Ask</div>
+  <h2 class="display">RM 1,000,000.<br><span class="accent">The model works. Now we scale it.</span></h2>
+  <div class="ask-wrap">
+    <div>
+      <div class="val-box">
+        <div class="val-lbl">Seed Round Target</div>
+        <div class="val-num">RM 1M</div>
+        <div class="val-sub">Year 1 revenue (RM 2.08M) already covers total operating costs (RM 731K) with a 2.84× surplus. Two ERP verticals live. Two reusable IP templates built. The model is proven — this round funds the team, the product, and the speed to capture the market before anyone else does.</div>
+      </div>
+      <div class="uof">
+        <div class="uof-t">Use of Funds — RM 1,000,000</div>
+        <div class="uof-row"><span class="uof-lbl">Team &amp; talent scale-up</span><div class="uof-bar-w"><div class="uof-bar" style="width:35%"></div></div><span class="uof-pct">35%</span><span class="uof-rm">RM 350,000</span></div>
+        <div class="uof-row"><span class="uof-lbl">ERP product build &amp; IP</span><div class="uof-bar-w"><div class="uof-bar" style="width:28%"></div></div><span class="uof-pct">28%</span><span class="uof-rm">RM 280,000</span></div>
+        <div class="uof-row"><span class="uof-lbl">Equipment &amp; infrastructure</span><div class="uof-bar-w"><div class="uof-bar" style="width:17%"></div></div><span class="uof-pct">17%</span><span class="uof-rm">RM 170,000</span></div>
+        <div class="uof-row"><span class="uof-lbl">BD, marketing &amp; grants</span><div class="uof-bar-w"><div class="uof-bar" style="width:12%"></div></div><span class="uof-pct">12%</span><span class="uof-rm">RM 120,000</span></div>
+        <div class="uof-row"><span class="uof-lbl">Working capital buffer</span><div class="uof-bar-w"><div class="uof-bar" style="width:8%"></div></div><span class="uof-pct">8%</span><span class="uof-rm">RM 80,000</span></div>
+      </div>
+      <div class="runway-box">
+        <div class="runway-lbl">Runway</div>
+        <div class="runway-val">18+ months</div>
+        <div class="runway-d">Investment + Y1 revenue surplus covers full Y1 opex (RM 731K) and accelerates Y2 team expansion. Cashflow positive from revenue from Month 4 (on first retainer close).</div>
+      </div>
+    </div>
+    <div>
+      <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--ink3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px;">Investment Tiers — Three Options</div>
+      <div class="tier-hd">
+        <div class="tier-th"></div>
+        <div class="tier-th">Investment</div>
+        <div class="tier-th">Equity</div>
+        <div class="tier-th">Founders Keep</div>
+        <div class="tier-th">Per 1%</div>
+      </div>
+      <div class="tiers">
+        <div class="tier-row feat">
+          <div class="tier-badge">A</div>
+          <div class="tier-cell"><div class="tier-lbl">Investment</div><div class="tier-val" style="font-size:18px;font-family:'Instrument Serif',serif;">RM 1,000,000</div></div>
+          <div class="tier-cell"><div class="tier-lbl">Investor Equity</div><div class="tier-val">40%</div></div>
+          <div class="tier-cell"><div class="tier-lbl">Founders Keep</div><div class="tier-val">60%</div></div>
+          <div class="tier-cell"><div class="tier-lbl">Per 1%</div><div class="tier-val">RM 25,000</div></div>
+        </div>
+        <div class="tier-row">
+          <div class="tier-badge">B</div>
+          <div class="tier-cell"><div class="tier-lbl">Investment</div><div class="tier-val">RM 750,000</div></div>
+          <div class="tier-cell"><div class="tier-lbl">Investor Equity</div><div class="tier-val">30%</div></div>
+          <div class="tier-cell"><div class="tier-lbl">Founders Keep</div><div class="tier-val">70%</div></div>
+          <div class="tier-cell"><div class="tier-lbl">Per 1%</div><div class="tier-val">RM 25,000</div></div>
+        </div>
+        <div class="tier-row">
+          <div class="tier-badge">C</div>
+          <div class="tier-cell"><div class="tier-lbl">Investment</div><div class="tier-val">RM 500,000</div></div>
+          <div class="tier-cell"><div class="tier-lbl">Investor Equity</div><div class="tier-val">20%</div></div>
+          <div class="tier-cell"><div class="tier-lbl">Founders Keep</div><div class="tier-val">80%</div></div>
+          <div class="tier-cell"><div class="tier-lbl">Per 1%</div><div class="tier-val">RM 25,000</div></div>
+        </div>
+      </div>
+      <div class="tier-note">Post-money valuation: RM 2.5M at Tier A (1.2× Y1 revenue target) · RM 25,000 per 1% equity across all tiers · Founder split at Tier A: Lum 25% · Xiao Yeen 17.5% · Natalie 17.5% · Non-binding. Final terms subject to SHA and legal due diligence.</div>
+      <div class="why-now">
+        <div class="wn-t">Why now</div>
+        <div class="wn-d">Two ERP deployments live. Two reusable IP templates created. Revenue already exceeds operating cost by 2.84× — one of the strongest seed-stage unit economics in this market. Every month without investment is a month of compounding SaaS ARR the investor misses. The vertical IP advantage compounds — first mover wins.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ S15: CLOSE ══ -->
+<div class="slide close-slide" id="s15">
+  <div class="sn" style="color:rgba(255,255,255,.2)">15</div>
+  <h2 class="close-h">Build with us.<br><span class="ac">Own the category.</span></h2>
+  <p class="close-tagline">We spot where your business bleeds value — and build the digital fix, fast.</p>
+  <div class="close-cta">Request Full Investment Memorandum →</div>
+  <div class="close-stats">
+    <div class="close-stat"><div class="close-stat-v">RM 2.5M</div><div class="close-stat-l">Post-Money Valuation</div></div>
+    <div class="close-div"></div>
+    <div class="close-stat"><div class="close-stat-v">RM 1M</div><div class="close-stat-l">Seed Round Target</div></div>
+    <div class="close-div"></div>
+    <div class="close-stat"><div class="close-stat-v">2.84×</div><div class="close-stat-l">Revenue / OpEx Cover Y1</div></div>
+    <div class="close-div"></div>
+    <div class="close-stat"><div class="close-stat-v">RM 10M</div><div class="close-stat-l">Year 5 Revenue Target</div></div>
+  </div>
+  <div class="close-ft">WithCompany Sdn. Bhd. &nbsp;·&nbsp; Lum &nbsp;·&nbsp; Xiao Yeen &nbsp;·&nbsp; Natalie &nbsp;·&nbsp; Malaysia · 2025</div>
+</div>
+
+<script>
+const slides=[...document.querySelectorAll('.slide')];
+const dotsEl=document.getElementById('dots');
+const TOTAL=slides.length;
+document.getElementById('ctr').textContent='1 of '+TOTAL;
+slides.forEach((_,i)=>{
+  const d=document.createElement('div');
+  d.className='nd';d.title='Slide '+(i+1);
+  d.onclick=()=>slides[i].scrollIntoView({behavior:'smooth'});
+  dotsEl.appendChild(d);
+});
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('v');tick();}});
+},{threshold:.1});
+slides.forEach(s=>obs.observe(s));
+function tick(){
+  const vis=slides.filter(s=>s.classList.contains('v'));
+  if(!vis.length)return;
+  const idx=slides.indexOf(vis[vis.length-1]);
+  document.getElementById('pbar').style.width=((idx+1)/TOTAL*100)+'%';
+  document.getElementById('ctr').textContent=(idx+1)+' of '+TOTAL;
+  [...dotsEl.children].forEach((d,i)=>d.classList.toggle('a',i<=idx));
+}
+document.addEventListener('keydown',e=>{
+  const vis=slides.filter(s=>s.classList.contains('v'));
+  const idx=slides.indexOf(vis[vis.length-1]);
+  if(['ArrowDown','ArrowRight'].includes(e.key)&&idx<TOTAL-1)slides[idx+1].scrollIntoView({behavior:'smooth'});
+  if(['ArrowUp','ArrowLeft'].includes(e.key)&&idx>0)slides[idx-1].scrollIntoView({behavior:'smooth'});
+});
+
+/* ── FIN TABS ── */
+function showFin(id,el){
+  document.querySelectorAll('.fin-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.fin-tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('fin-'+id).classList.add('active');
+  el.classList.add('active');
+  if(id==='5yr')buildBars5();
+  if(id==='proj')buildBars3();
+}
+
+/* ── 5-YEAR BARS (ERP v4 data) ── */
+const d5=[
+  {y:'Y1',r:1320000,p:700000,s:60000,t:2080000},
+  {y:'Y2',r:1440000,p:1500000,s:710000,t:3650000},
+  {y:'Y3',r:2760000,p:3060000,s:490000,t:6310000},
+  {y:'Y4',r:2760000,p:4810000,s:845000,t:8415000},
+  {y:'Y5',r:4140000,p:4620000,s:1280000,t:10040000},
+];
+const gr5=['—','+75%','+73%','+33%','+19%'];
+let b5=false;
+function buildBars5(){
+  if(b5)return;b5=true;
+  const mx=Math.max(...d5.map(d=>d.t));
+  const w=document.getElementById('bar5');w.innerHTML='';
+  d5.forEach((d,i)=>{
+    const th=(d.t/mx)*185,sh=(d.s/mx)*185,ph=(d.p/mx)*185,rh=th-sh-ph;
+    const c=document.createElement('div');c.className='bc5';
+    c.innerHTML=`<div class="bc5-top">${(d.t/1e6).toFixed(1)}M</div>
+      <div class="bc5-stack" style="height:${th}px">
+        <div class="bsaas5" style="height:${Math.max(sh,4)}px"></div>
+        <div class="berp5" style="height:${Math.max(ph,4)}px"></div>
+        <div class="bret5" style="height:${Math.max(rh,4)}px"></div>
+      </div>
+      <div class="bc5-lbl">${d.y}</div><div class="bc5-gr">${gr5[i]}</div>`;
+    w.appendChild(c);
+  });
+}
+buildBars5();
+
+/* ── 3-YEAR BARS (ERP v4 data) ── */
+const projData=[
+  {y:'Y1',agency:1320000,tech:760000},
+  {y:'Y2',agency:1440000,tech:2210000},
+  {y:'Y3',agency:2760000,tech:3550000},
+];
+let built=false;
+function buildBars3(){
+  if(built)return;built=true;
+  const max=Math.max(...projData.map(d=>d.agency+d.tech));
+  const c=document.getElementById('proj-bars');c.innerHTML='';
+  projData.forEach(d=>{
+    const total=d.agency+d.tech;
+    const ah=(d.agency/max)*165;const th=(d.tech/max)*165;
+    const w=document.createElement('div');w.className='pbar-w';
+    w.innerHTML=`<div class="pbar-val">RM ${(total/1e6).toFixed(1)}M</div>
+      <div class="pbar-stk" style="height:${ah+th}px">
+        <div class="pbar-seg tech" style="height:${th}px"></div>
+        <div class="pbar-seg agency" style="height:${ah}px"></div>
+      </div>
+      <div class="pbar-lbl">${d.y}</div>`;
+    c.appendChild(w);
+  });
+}
+</script>
+</body>
+</html>
